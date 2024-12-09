@@ -1,21 +1,28 @@
-import { MapContainer, TileLayer, Popup, Marker } from 'react-leaflet'
-//import "leaflet/dist/leaflet.css";
-
+import { Input } from '../components/input'
+import { Button } from '../components/button'
+import { Map } from '../components/map'
 
 export function Home() {
   return (
-   <div  className="w-full min-h-screen">
-     <MapContainer style={{ height: '100vh', width: '100wh' }} center={[51.505, -0.09]} zoom={33} scrollWheelZoom={false}>
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Marker position={[51.505, -0.09]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
-    </MapContainer>
-   </div>
+    <div className='bg-slate-300 h-screen p-4 grid grid-cols-2'>
+      <main className='bg-slate-50 p-4 mr-4 rounded-xl'>
+        <div className='flex justify-between'>
+          <h1 className='text-2xl font-bold'>Family Farming</h1>
+          <Button>Lista</Button>
+        </div>
+        <div className='flex flex-col gap-4'>
+          <Input placeholder="Digite o nome" />
+          <Input placeholder="Digite o nome" />
+          <Input placeholder="Digite o nome" />
+          <Input placeholder="Digite o nome" />
+          <Input placeholder="Digite o nome" />
+        </div>
+        <Button>Salvar</Button>
+        <p></p>
+      </main>
+      <div className="min-h-[50vh] rounded-xl">
+        <Map/>
+      </div>
+    </div>
   )
 }
