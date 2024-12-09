@@ -1,6 +1,7 @@
 import { Input } from '../components/input'
 import { Button } from '../components/button'
 import { Map } from '../components/map'
+import { NavLink } from 'react-router'
 
 export function Home() {
   return (
@@ -8,7 +9,9 @@ export function Home() {
       <main className='bg-slate-50 p-4 mr-4 rounded-xl'>
         <div className='flex justify-between'>
           <h1 className='text-2xl font-bold'>Family Farming</h1>
-          <Button>Lista</Button>
+          <NavLink to="/agricultores">
+            <Button>Lista</Button>
+          </NavLink>
         </div>
         <div className='flex flex-col gap-4'>
           <Input placeholder="Digite o nome" />
