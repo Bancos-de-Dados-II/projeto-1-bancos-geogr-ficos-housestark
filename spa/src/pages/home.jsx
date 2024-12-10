@@ -11,7 +11,7 @@ export function Home() {
         <div className='flex justify-between items-center mb-4 mt-4'>
           <h1 className='text-lg font-medium text-slate-700'>Criar agricultor</h1>
           <NavLink to="/agricultores">
-            <Button>Lista</Button> 
+            <Button>Lista</Button>
           </NavLink>
         </div>
         <div className='flex flex-col gap-4 mb-4'>
@@ -22,8 +22,14 @@ export function Home() {
         </div>
         <Button>Salvar</Button>
       </main>
-      <div className="min-h-[50vh] rounded-xl">
-        <Map />
+      <div className="flex flex-col  rounded-xl bg-slate-50">
+        <div className='flex justify-between items-center gap-2 px-4 py-4'>
+          <Input placeholder="Procure pelo mapa" />
+          <Button>Buscar</Button>
+        </div>
+        <div className='flex-grow'>
+          <Map />
+        </div>
       </div>
     </div>
   )
