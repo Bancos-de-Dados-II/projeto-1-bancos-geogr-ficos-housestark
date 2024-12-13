@@ -2,8 +2,25 @@ import { Input } from '../components/input'
 import { Button } from '../components/button'
 import { Map } from '../components/map'
 import { NavLink } from 'react-router'
+import { useState } from 'react'
 
 export function Home() {
+  const [search, setSearch] = useState('')
+  const [position, setPosition] = useState([51.505, -0.09])
+ 
+  
+  function onChange(e) {
+    setSearch(e.target.value)
+  }
+
+  function handleSearch() {
+    fetch(`https://nominatim.openstreetmap.org/search?q=${search}&format=json`)
+      .then(response => response.json())
+      .then(data => {
+        let centro = [Number(data[0].lat),Number(data[0].lon)];
+        setPosition(centro);
+      })
+  }
   return (
     <div className='bg-slate-300 h-screen p-8 grid grid-cols-2 gap-8'>
       <main className='bg-slate-50 p-8 rounded-xl'>
@@ -24,11 +41,11 @@ export function Home() {
       </main>
       <div className="flex flex-col  rounded-xl bg-slate-50">
         <div className='flex justify-between items-center gap-2 px-4 py-4'>
-          <Input placeholder="Procure pelo mapa" />
-          <Button>Buscar</Button>
+          <Input placeholder="Procure pelo mapa" value={search} onChange={onChange}/>
+          <Button onClick={handleSearch} >Buscar</Button>
         </div>
         <div className='flex-grow'>
-          <Map />
+          <Map position={position} setPosition={setPosition}/>
         </div>
       </div>
     </div>

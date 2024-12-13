@@ -1,9 +1,10 @@
 import { Map } from "../components/map"
 import { Button } from "../components/button"
 import { NavLink } from "react-router"
-
+import { useState } from "react"
 
 export function List() {
+  const [position, setPosition] = useState([51.505, -0.09])
   return (
     <div className='bg-slate-300 h-screen p-8 grid grid-cols-2 gap-8'>
       <main className='bg-slate-50 p-8 rounded-xl'>
@@ -21,7 +22,7 @@ export function List() {
         </div>
       </main>
       <div className="min-h-[50vh] rounded-xl">
-        <Map />
+        <Map position={position} setPosition={setPosition}/>
       </div>
     </div>
   )
