@@ -1,33 +1,26 @@
 import { useState } from 'react'
+import { Button } from './button'
 
-
-
-
-export function FarmCard({ nome, email, telefone, tamanhoTerreno}) {
+export function FarmCard({ nome, email, telefone, position , tamanhoTerreno, mudarPosicao}) {
 
   let [isOpen, setIsOpen] = useState(false)
 
-  function open() {
-    setIsOpen(true)
-  }
-
-  function close() {
-    setIsOpen(false)
+  function changePosition() {
+    mudarPosicao(position);
   }
   
   return (
     <>
-      <div onClick={open} className="w-full relative cursor-pointer vehicle-card">
-
-        <div className="p-4 w-full bottom-0 text-black">
+      <div onClick={changePosition} className="w-full cursor-pointer">
+        <div className=" text-black">
           <div className='flex justify-between p-2 rounded border border-primary'>
             <div>
               <p><strong>Nome: </strong>{nome}</p>
-              <p><strong>Telefone: </strong>{telefone}</p>
               <p><strong>Email: </strong>{email}</p>
             </div>
-            
+            <div>
             <p><strong>Tamanho do terreno: </strong>{tamanhoTerreno} m²</p>
+            </div>
           </div>
         </div>
       </div>
