@@ -6,9 +6,12 @@ import { useState } from 'react'
 
 export function Home() {
   const [search, setSearch] = useState('')
-  const [position, setPosition] = useState([51.505, -0.09])
- 
-  
+  const [position, setPosition] = useState([51.505, -0.09]);
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [tamanhoTerreno, setTamanhoTerreno] = useState("");
+
   function onChange(e) {
     setSearch(e.target.value)
   }
@@ -21,6 +24,11 @@ export function Home() {
         setPosition(centro);
       })
   }
+
+  function handleSave(){
+    console.log(nome, email, telefone, tamanhoTerreno, position);
+  }
+
   return (
     <div className='bg-slate-300 h-screen p-8 grid grid-cols-2 gap-8'>
       <main className='bg-slate-50 p-8 rounded-xl'>
@@ -32,12 +40,22 @@ export function Home() {
           </NavLink>
         </div>
         <div className='flex flex-col gap-4 mb-4'>
-          <Input placeholder="Digite o nome" />
-          <Input placeholder="Digite o email" />
-          <Input placeholder="Digite o telefone" />
-          <Input placeholder="Digite o tamanho do terreno" />
+          <Input placeholder="Digite o nome" 
+          onChange={(e)=> setNome(e.target.value)}
+          />
+          <Input placeholder="Digite o email" 
+          onChange={(e)=> setEmail(e.target.value)}
+          />
+          <Input placeholder="Digite o telefone" 
+          onChange={(e)=> setTelefone(e.target.value)}
+          />
+          <Input placeholder="Digite o tamanho do terreno" 
+          onChange={(e)=> setTamanhoTerreno(e.target.value)} 
+          />
         </div>
-        <Button>Salvar</Button>
+        <Button
+        onClick={handleSave}
+        >Salvar</Button>
       </main>
       <div className="flex flex-col  rounded-xl bg-slate-50">
         <div className='flex justify-between items-center gap-2 px-4 py-4'>

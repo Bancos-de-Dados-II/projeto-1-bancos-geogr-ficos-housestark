@@ -1,11 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useState } from "react";
-export function Modal({ isOpen, onClose, farmer, onSave }) {
+export function Modal({ isOpen, onClose, farmer }) {
     if (!isOpen) return null;
   
-   
     const [editedFarmer, setEditedFarmer] = useState(farmer);
   
-    
     function handleInputChange(event) {
       const { name, value } = event.target;
       setEditedFarmer((prev) => ({
@@ -14,10 +13,13 @@ export function Modal({ isOpen, onClose, farmer, onSave }) {
       }));
     }
   
-
     function handleSave() {
-      onSave(editedFarmer); 
+      console.log(editedFarmer);
       onClose();  
+    }
+
+    function handleDelete(){
+      onClose();
     }
   
     return (
@@ -78,7 +80,7 @@ export function Modal({ isOpen, onClose, farmer, onSave }) {
             </button>
             <button
               className="bg-red-500 text-white px-4 py-2 rounded mr-2"
-              onClick={handleSave}
+              onClick={handleDelete}
               
             >
               Deletar
