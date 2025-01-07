@@ -30,7 +30,7 @@ export const getAllFarmers = async (req: Request, res: Response) => {
     try {
         const farmer = await prisma.agricultor.findMany();
 
-        if (farmer != null) {
+        if (farmer != null && farmer.length > 0) {
             res.status(200).json(farmer);
         } else {
             res.status(404).json({ "message": "Agricultores não encontrados!" });
@@ -79,7 +79,32 @@ export const updateFarmer = async (req: Request, res: Response) => {
             res.status(201).json({ "message": "Agricultor atualizado com sucesso!" });
         } else {
             res.status(400).json({ "message": "Todos os campos devem ser preenchidos!" });
-        }  
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+export const deleteFarmer = async (req: Request, res: Response) => {
+    try {
+
+        const farmer = await prisma.agricultor.findUnique({
+            where: {
+                id: Number(req.params.id)
+            }
+        });
+
+        if (farmer != null) {
+            const farmer = await prisma.agricultor.delete({
+                where: {
+                    id: Number(req.params.id)
+                }
+            });
+            res.status(200).json({ "message": "Agricultor excluido com sucesso!" });
+        } else {
+            res.status(404).json({ "message": "Agricultor nao encontrado!" });
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal server error" });
