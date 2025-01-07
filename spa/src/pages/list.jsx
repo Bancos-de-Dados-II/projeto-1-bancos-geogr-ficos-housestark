@@ -4,59 +4,25 @@ import { NavLink } from "react-router"
 import { useState, useEffect } from "react"
 import { FarmCard } from "../components/farmer-card"
 import { Modal } from "../components/modal"
+import { getFarmer } from "../utils/get-farmer"
 
 export function List() {
   const [farmerList, setFarmerList] = useState([]);
-  const [position, setPosition] = useState([-7.121, -36.724]);
+  const [position, setPosition] = useState([-6.890048, -38.555859]);
   const [selectedFarmer, setSelectedFarmer] = useState(null); 
   const [isModalOpen, setIsModalOpen] = useState(false); 
 
-  useEffect(() => {
-    setFarmerList([ // array de exemplo, no futuro será nossa api hehe
-      {
-        nome: "andré",
-        telefone: "111111",
-        email: "g@gmail.com",
-        tamanhoTerreno: "1111111",
-        position: [-7.121, -35.724]
-      },
-      {
-        nome: "Josepg",
-        telefone: "111111",
-        email: "g@gmail.com",
-        tamanhoTerreno: "1111111",
-        position: [-6.121, -36.724]
-      },
-      {
-        nome: "andré",
-        telefone: "111111",
-        email: "g@gmail.com",
-        tamanhoTerreno: "1111111",
-        position: [-7.121, -26.724]
-      },
-      {
-        nome: "andré",
-        telefone: "111111",
-        email: "g@gmail.com",
-        tamanhoTerreno: "1111111",
-        position: [-7.121, -36.724]
-      },
-      {
-        nome: "andré",
-        telefone: "111111",
-        email: "g@gmail.com",
-        tamanhoTerreno: "1111111",
-        position: [-7.121, -36.724]
-      },
-      {
-        nome: "andré",
-        telefone: "111111",
-        email: "g@gmail.com",
-        tamanhoTerreno: "1111111",
-        position: [-7.121, -36.724]
-      }
 
-    ]);
+  async function getAllFarmersFunction() {
+    const data = await getFarmer();
+    console.log(data);
+    if(data) {
+      setFarmerList(data);
+    }
+  }
+
+  useEffect(() => {
+    getAllFarmersFunction();
   }, []);
 
   function handleChangePosition(newPosition){
@@ -72,8 +38,8 @@ export function List() {
     setSelectedFarmer(null);
   }
 
-  function handleDeleteFarmer(){
-    
+  function sendPosition(){
+    return position;
   }
 
   return (
@@ -95,7 +61,7 @@ export function List() {
               telefone={farmer.telefone}
               email={farmer.email}
               tamanhoTerreno={farmer.tamanhoTerreno}
-              position={farmer.position}
+              position={[farmer.posicaoXTerreno, farmer.posicaoYTerreno]}
               mudarPosicao={handleChangePosition}
             />
             </div>
@@ -109,7 +75,8 @@ export function List() {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         farmer={selectedFarmer}
-        deleteFarmerFunction={handleDeleteFarmer}
+        atualizarCards={getAllFarmersFunction}
+        getPosition={sendPosition}
       />
     </div>
   );

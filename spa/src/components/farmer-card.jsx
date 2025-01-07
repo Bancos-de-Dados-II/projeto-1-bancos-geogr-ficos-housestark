@@ -3,8 +3,6 @@ import { Button } from './button'
 
 export function FarmCard({ nome, email, telefone, position , tamanhoTerreno, mudarPosicao}) {
 
-  let [isOpen, setIsOpen] = useState(false)
-
   function changePosition() {
     mudarPosicao(position);
   }

@@ -1,19 +1,21 @@
 import { Input } from '../components/input'
 import { Button } from '../components/button'
 import { Map } from '../components/map'
-import { NavLink } from 'react-router'
+import { NavLink, useNavigate } from 'react-router'
 import { useState } from 'react'
+import { createFarmer } from '../utils/create-farmer'
 
 export function Home() {
+  const navigate = useNavigate();
   const [search, setSearch] = useState('')
-  const [position, setPosition] = useState([51.505, -0.09]);
+  const [position, setPosition] = useState([-6.890048, -38.555859]);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
   const [tamanhoTerreno, setTamanhoTerreno] = useState("");
 
   function onChange(e) {
-    setSearch(e.target.value)
+    setSearch(e.target.value);
   }
 
   function handleSearch() {
@@ -25,8 +27,18 @@ export function Home() {
       })
   }
 
-  function handleSave(){
+  async function handleSave(){
     console.log(nome, email, telefone, tamanhoTerreno, position);
+    let requisition = await createFarmer(nome, email, telefone, tamanhoTerreno, position[0].toString(), position[1].toString());
+    if(requisition) {
+      navigate('/agricultores');
+    } else {
+      alert("Informações incorretas");
+      setNome("");
+      setEmail("");
+      setTelefone("");
+      setTamanhoTerreno("");
+    }
   }
 
   return (
