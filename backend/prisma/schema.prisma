@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Agricultor {
-  id              Int    @id @default(autoincrement())
+  id              Int    @id @default(autoincrement()) 
   nome            String 
   email           String @unique
   telefone        String

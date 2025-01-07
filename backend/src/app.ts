@@ -1,16 +1,24 @@
-/* import express from "express";
+import express from "express";
+import dotenv from "dotenv";
+import farmerRoutes from "./routes/farmerRoutes";
+
+dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+//midlewares
+app.use(express.json());
 
-app.listen(3000, () => {
-    console.log('Server started on port 3000');
-}); */
+//routes
+app.use('/api/', farmerRoutes);
 
-import { PrismaClient } from '@prisma/client';
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+}); 
+
+/* import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -29,4 +37,4 @@ const createAgricultor = async () => {
   console.log(agricultor);
 };
 
-createAgricultor();
+createAgricultor(); */
