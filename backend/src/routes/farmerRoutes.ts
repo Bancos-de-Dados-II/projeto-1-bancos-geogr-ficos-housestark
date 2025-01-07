@@ -9,5 +9,4 @@ router.get("/get-farmer/:id", getFarmerById);
 router.put("/update-farmer/:id", updateFarmer);
 router.delete("/delete-farmer/:id", deleteFarmer);
 
-
 export default router;
