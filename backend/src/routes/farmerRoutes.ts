@@ -1,10 +1,11 @@
 import { Router } from "express";
-import { createFarmer, getAllFarmers, getFarmerById } from "../controllers/farmerController";
+import { createFarmer, getAllFarmers, getFarmerById, updateFarmer } from "../controllers/farmerController";
 
 const router = Router();
 
-router.get("/farmers", getAllFarmers);
 router.post("/create-farmer", createFarmer);
+router.get("/farmers", getAllFarmers);
 router.get("/farmer/:id", getFarmerById);
+router.put("/update-farmer/:id", updateFarmer);
 
 export default router;
