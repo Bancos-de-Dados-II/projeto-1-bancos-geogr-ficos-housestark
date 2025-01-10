@@ -16,7 +16,7 @@ export function MarkerPoint({ position, setPosition }) {
     }, map.getZoom())
   }, [position])
   return (
-    <Marker position={position} draggable>
+    <Marker position={position} >
       <Popup>
         A pretty CSS3 popup. <br /> Easily customizable.
       </Popup>
