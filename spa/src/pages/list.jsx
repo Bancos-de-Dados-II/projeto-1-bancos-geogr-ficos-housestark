@@ -5,20 +5,37 @@ import { useState, useEffect } from "react"
 import { FarmCard } from "../components/farmer-card"
 import { Modal } from "../components/modal"
 import { getFarmer } from "../utils/get-farmer"
+import {Input} from "../components/input"
 
 export function List() {
+  const [search, setSearch] = useState('')
   const [farmerList, setFarmerList] = useState([]);
   const [position, setPosition] = useState([-6.890048, -38.555859]);
   const [selectedFarmer, setSelectedFarmer] = useState(null); 
   const [isModalOpen, setIsModalOpen] = useState(false); 
 
 
+  function onChange(e) {
+    setSearch(e.target.value);
+  }
+
+  function handleSearch() {
+    fetch(`https://nominatim.openstreetmap.org/search?q=${search}&format=json`)
+      .then(response => response.json())
+      .then(data => {
+        let centro = [Number(data[0].lat),Number(data[0].lon)];
+        setPosition(centro);
+      })
+  }
+
   async function getAllFarmersFunction() {
     const data = await getFarmer();
     console.log(data);
     if(data) {
       setFarmerList(data);
+      setPosition([-6.890048, -38.555859])
     }
+    
   }
 
   useEffect(() => {
@@ -68,8 +85,14 @@ export function List() {
           )) : <p>Nenhuma fazenda cadastrada.</p>}
         </div>
       </main>
-      <div className="min-h-[50vh] rounded-xl">
-        <Map position={position} setPosition={setPosition} />
+      <div className="flex flex-col  rounded-xl bg-slate-50">
+        <div className='flex justify-between items-center gap-2 px-4 py-4'>
+          <Input placeholder="Procure pelo mapa" value={search} onChange={onChange}/>
+          <Button onClick={handleSearch} >Buscar</Button>
+        </div>
+        <div className='flex-grow'>
+          <Map position={position} setPosition={setPosition}/>
+        </div>
       </div>
       <Modal
         isOpen={isModalOpen}
