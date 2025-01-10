@@ -18,6 +18,13 @@ export function Home() {
     setSearch(e.target.value);
   }
 
+  function onKeyUp(e){
+    if (e.key == "Enter") {
+      handleSearch();
+      e.target.blur();
+    }
+  }
+
   function handleSearch() {
     fetch(`https://nominatim.openstreetmap.org/search?q=${search}&format=json`)
       .then(response => response.json())
@@ -71,7 +78,7 @@ export function Home() {
       </main>
       <div className="flex flex-col  rounded-xl bg-slate-50">
         <div className='flex justify-between items-center gap-2 px-4 py-4'>
-          <Input placeholder="Procure pelo mapa" value={search} onChange={onChange}/>
+          <Input placeholder="Procure pelo mapa" value={search} onChange={onChange} onKeyUp={onKeyUp}/>
           <Button onClick={handleSearch} >Buscar</Button>
         </div>
         <div className='flex-grow'>

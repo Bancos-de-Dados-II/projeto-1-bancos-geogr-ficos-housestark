@@ -28,6 +28,13 @@ export function List() {
       })
   }
 
+  function onKeyUp(e){
+    if (e.key == "Enter") {
+      handleSearch();
+      e.target.blur();
+    }
+  }
+
   async function getAllFarmersFunction() {
     const data = await getFarmer();
     console.log(data);
@@ -87,7 +94,7 @@ export function List() {
       </main>
       <div className="flex flex-col  rounded-xl bg-slate-50">
         <div className='flex justify-between items-center gap-2 px-4 py-4'>
-          <Input placeholder="Procure pelo mapa" value={search} onChange={onChange}/>
+          <Input placeholder="Procure pelo mapa" value={search} onChange={onChange} onKeyUp={onKeyUp}/>
           <Button onClick={handleSearch} >Buscar</Button>
         </div>
         <div className='flex-grow'>
