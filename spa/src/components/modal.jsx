@@ -16,13 +16,14 @@ export function Modal({ isOpen, onClose, farmer, atualizarCards, getPosition }) 
     }));
   }
 
-  function handleSave() {
+  async function handleSave() {
     console.log(editedFarmer);
     let pos = getPosition();
-    const requisition = updateFarmer(editedFarmer.id ,editedFarmer.nome, editedFarmer.email, 
-      editedFarmer.telefone, editedFarmer.tamanhoTerreno, pos[0].toString(), pos[1].toString());
+    console.log(pos);
+    const requisition = await updateFarmer(editedFarmer.id ,editedFarmer.nome, editedFarmer.email, 
+      editedFarmer.telefone, editedFarmer.tamanhoTerreno, pos[0], pos[1]);
      if(requisition) {
-      atualizarCards();
+      await atualizarCards();
       alert("Atualização feita");
       onClose();  
      } else {
@@ -31,10 +32,10 @@ export function Modal({ isOpen, onClose, farmer, atualizarCards, getPosition }) 
     
   }
 
-  function handleDelete() {
-    deleteFarmer(editedFarmer.id);
-    atualizarCards();
-    alert("Fazendeiro excluído")
+  async function handleDelete() {
+    await deleteFarmer(editedFarmer.id);
+    await atualizarCards();
+    alert("Fazendeiro excluído");
     onClose();
   }
 

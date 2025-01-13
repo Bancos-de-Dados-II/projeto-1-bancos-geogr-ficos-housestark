@@ -9,7 +9,7 @@ export async function updateFarmer(id, nome, email, telefone, tamanhoTerreno, po
         body: JSON.stringify({nome, email, telefone, tamanhoTerreno, posicaoXTerreno, posicaoYTerreno})
       });
   
-      if (response.status === 201) {
+      if (response.status === 200) {
         const data = await response.json();
         console.log('Fazendeiro atualizado', data);
         return true;

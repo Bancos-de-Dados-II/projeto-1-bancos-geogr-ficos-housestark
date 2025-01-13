@@ -37,10 +37,12 @@ export function List() {
 
   async function getAllFarmersFunction() {
     const data = await getFarmer();
-    console.log(data);
+
     if (data) {
       setFarmerList(data);
       setPosition([-6.890048, -38.555859])
+    } else {
+      setFarmerList([]);
     }
 
   }
@@ -85,7 +87,7 @@ export function List() {
                 telefone={farmer.telefone}
                 email={farmer.email}
                 tamanhoTerreno={farmer.tamanhoTerreno}
-                position={[farmer.posicaoXTerreno, farmer.posicaoYTerreno]}
+                position={farmer.localizacao.coordinates}
                 mudarPosicao={handleChangePosition}
               />
             </div>

@@ -36,7 +36,7 @@ export function Home() {
 
   async function handleSave(){
     console.log(nome, email, telefone, tamanhoTerreno, position);
-    let requisition = await createFarmer(nome, email, telefone, tamanhoTerreno, position[0].toString(), position[1].toString());
+    let requisition = await createFarmer(nome, email, telefone, tamanhoTerreno, position[0], position[1]);
     if(requisition) {
       navigate('/agricultores');
     } else {
